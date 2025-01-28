@@ -1,0 +1,2 @@
+Press Win + R to open the Run dialog.
+Type %APPDATA%\rod\browser and press Enter. This will take you directly to the folder. -> to find chromiums
