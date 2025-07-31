@@ -63,12 +63,12 @@ RUN mkdir -p /etc/apt/keyrings \
 # Verify Node.js and npm installation (optional, but good for debugging)
 RUN node -v && npm -v && npx -v
 
-# Install Google Chrome
-RUN wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | apt-key add - \
-    && echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list \
-    && apt-get update \
-    && apt-get install -y google-chrome-stable \
-    && rm -rf /var/lib/apt/lists/*
+# # Install Google Chrome
+# RUN wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | apt-key add - \
+#     && echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list \
+#     && apt-get update \
+#     && apt-get install -y google-chrome-stable \
+#     && rm -rf /var/lib/apt/lists/*
 
 # Create chrome user and directories
 RUN groupadd -r chrome && useradd -r -g chrome -G audio,video chrome \
@@ -91,7 +91,7 @@ ENV PLAYWRIGHT_BROWSERS_PATH=/ms-browsers
 RUN mkdir -p $PLAYWRIGHT_BROWSERS_PATH
 
 
-# RUN uv run patchright install --force chrome --with-deps
+RUN uv run patchright install chrome --with-deps
 
 
 # Copy the application code
