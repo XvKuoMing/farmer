@@ -9,8 +9,9 @@ done
 
 echo "X server is ready, starting Chrome..."
 
-# Chrome arguments for CDP and GUI mode
+# Chrome arguments for CDP and GUI mode with enhanced stealth
 CHROME_ARGS=(
+    # Basic Chrome setup
     --no-sandbox
     --disable-dev-shm-usage
     --disable-gpu-sandbox
@@ -20,37 +21,81 @@ CHROME_ARGS=(
     --remote-debugging-address=127.0.0.1
     --remote-allow-origins=*
     --enable-remote-extensions
+    
+    # Core stealth - disable automation detection
+    --disable-blink-features=AutomationControlled
+    --disable-automation
+    --exclude-switches=enable-automation
+    --enable-automation=false
+    --disable-infobars
+    
+    # Window and display
+    --window-size=${SCREEN_WIDTH},${SCREEN_HEIGHT}
+    --window-position=0,0
+    --start-maximized
+    
+    # Disable telemetry and reporting
     --disable-background-timer-throttling
     --disable-backgrounding-occluded-windows
     --disable-renderer-backgrounding
-    --disable-features=TranslateUI
-    --disable-ipc-flooding-protection
-    --enable-automation
-    --password-store=basic
-    --use-mock-keychain
+    --disable-background-networking
+    --disable-sync
+    --disable-translate
+    --disable-background-downloads
+    --disable-add-to-shelf
+    --disable-client-side-phishing-detection
+    --disable-datasaver-prompt
+    --disable-domain-reliability
+    --disable-component-update
+    --disable-component-extensions-with-background-pages
+    --disable-default-apps
+    --disable-extensions
+    --disable-extensions-file-access-check
+    --disable-extensions-http-throttling
+    
+    # Performance and memory
+    --memory-pressure-off
+    --max_old_space_size=4096
+    --aggressive-cache-discard
+    
+    # Disable various web APIs for detection evasion
+    --disable-features=VizDisplayCompositor,AudioServiceOutOfProcess,UserAgentClientHint,VizHitTestSurfaceLayer,TranslateUI
+    
+    # First run and defaults
     --no-first-run
     --no-default-browser-check
-    --disable-default-apps
+    --no-service-autorun
+    --password-store=basic
+    --use-mock-keychain
+    
+    # Permissions and prompts
+    --deny-permission-prompts
+    --disable-notifications
+    --disable-geolocation
     --disable-popup-blocking
-    --disable-translate
-    --disable-background-networking
-    --disable-background-timer-throttling
-    --disable-backgrounding-occluded-windows
-    --disable-renderer-backgrounding
+    --disable-save-password-bubble
+    
+    # Security (reduces detection but may affect functionality)
+    --disable-web-security
+    --allow-running-insecure-content
+    --ignore-certificate-errors
+    --ignore-ssl-errors
+    --ignore-certificate-errors-spki-list
+    
+    # Behavior modifications
     --disable-field-trial-config
     --disable-hang-monitor
     --disable-prompt-on-repost
-    --disable-domain-reliability
-    --disable-component-extensions-with-background-pages
-    --disable-extensions
-    --window-size=${SCREEN_WIDTH},${SCREEN_HEIGHT}
-    --window-position=0,0
-    # Reduce D-Bus and service-related errors
-    --disable-features=VizDisplayCompositor
+    --disable-ipc-flooding-protection
+    --autoplay-policy=no-user-gesture-required
+    
+    # Proxy detection evasion
+    --proxy-bypass-list=*
+    --proxy-server="direct://"
+    
+    # Logging and debugging
     --disable-logging
     --silent-debugger-extension-api
-    --disable-web-security
-    --disable-features=VizDisplayCompositor,VizHitTestSurfaceLayer
     --log-level=3
 )
 
