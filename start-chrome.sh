@@ -18,7 +18,7 @@ CHROME_ARGS=(
     --remote-debugging-address=0.0.0.0
     --remote-debugging-port=9222
     --enable-remote-extensions
-    --user-data-dir=/home/chrome/.config/google-chrome
+    --user-data-dir=/home/chrome/chrome-data
     --disable-background-timer-throttling
     --disable-backgrounding-occluded-windows
     --disable-renderer-backgrounding
