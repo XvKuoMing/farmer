@@ -17,6 +17,17 @@ async def main():
         browser = await playwright.chromium.launch(
             channel="chrome",
             headless=False,
+            args=[
+                "--no-sandbox",
+                "--disable-dev-shm-usage",
+                "--disable-gpu",
+                "--disable-software-rasterizer",
+                "--disable-background-timer-throttling",
+                "--disable-backgrounding-occluded-windows",
+                "--disable-renderer-backgrounding",
+                "--disable-features=TranslateUI",
+                "--disable-ipc-flooding-protection",
+            ]
         )
         context = await browser.new_context()
         # context.new_cdp_session()
