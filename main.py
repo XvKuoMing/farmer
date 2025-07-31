@@ -19,6 +19,7 @@ async def main():
             headless=False,
         )
         context = await browser.new_context()
+        # context.new_cdp_session()
         page = await context.new_page()
 
         browser_session = BrowserSession(
