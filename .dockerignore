@@ -1,35 +1,3 @@
-# Development files
-*.pyc
-__pycache__/
-.pytest_cache/
-.coverage
-.venv/
-venv/
-
-# IDE files
-.vscode/
-.idea/
-*.swp
-*.swo
-
-# OS files
-.DS_Store
-Thumbs.db
-
-# Git
-.git/
-.gitignore
-
-# Documentation
-README.md
-*.md
-
-# Screenshots and logs
-*.png
-*.jpg
-*.log
-
-# Environment files (they're handled via docker-compose)
-.env.local
-.env.development
-.env.production
+.env*
+.venv
+*md
