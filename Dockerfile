@@ -91,7 +91,7 @@ ENV PLAYWRIGHT_BROWSERS_PATH=/ms-browsers
 RUN mkdir -p $PLAYWRIGHT_BROWSERS_PATH
 
 
-RUN uv run patchright install chrome --with-deps
+# RUN uv run patchright install --force chrome --with-deps
 
 
 # Copy the application code
