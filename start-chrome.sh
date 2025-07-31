@@ -15,10 +15,11 @@ CHROME_ARGS=(
     --disable-dev-shm-usage
     --disable-gpu-sandbox
     --disable-software-rasterizer
-    --remote-debugging-address=0.0.0.0
-    --remote-debugging-port=9222
-    --enable-remote-extensions
     --user-data-dir=/home/chrome/chrome-data
+    --remote-debugging-port=9222
+    --remote-debugging-address=0.0.0.0
+    --remote-allow-origins=*
+    --enable-remote-extensions
     --disable-background-timer-throttling
     --disable-backgrounding-occluded-windows
     --disable-renderer-backgrounding
