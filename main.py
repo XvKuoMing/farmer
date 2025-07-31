@@ -14,8 +14,9 @@ llm = ChatOpenAI(
 
 async def main():
     async with async_playwright() as playwright:
-        browser = await playwright.chromium.connect(
-            ws_endpoint="ws://192.168.100.14:9222",
+        browser = await playwright.chromium.launch(
+            channel="chrome",
+            headless=False,
         )
         context = await browser.new_context()
         page = await context.new_page()

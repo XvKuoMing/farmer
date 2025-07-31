@@ -8,14 +8,19 @@ services:
       - "5901:5901"    # VNC direct connection
       - "9222:9222"    # Chrome DevTools Protocol
     volumes:
-      - chrome-data:/home/chrome/chrome-data
-      - chrome-downloads:/home/chrome/Downloads
+      - /tmp/.X11-unix:/tmp/.X11-unix
+      - ./my_chrome_data:/app/data/chrome_data
     environment:
       - SCREEN_WIDTH=1920
       - SCREEN_HEIGHT=1080
       - SCREEN_DEPTH=24
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - OPENAI_BASE_URL=${OPENAI_BASE_URL}
+      - ANONYMIZED_TELEMETRY=false
     cap_add:
       - SYS_ADMIN
+    tmpfs:
+      - /tmp
     restart: unless-stopped
     shm_size: 2gb
 
