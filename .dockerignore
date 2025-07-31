@@ -3,8 +3,6 @@
 *.md
 .git/
 .gitignore
-uv.lock
-pyproject.toml
 .python-version
 __pycache__/
 *.pyc
