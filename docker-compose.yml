@@ -1,0 +1,53 @@
+services:
+  # Chrome browser container
+  chrome:
+    build:
+      context: .
+      dockerfile: Dockerfile.chrome
+    container_name: chrome-browser
+    environment:
+      - DISPLAY=:99
+      - ENABLE_VNC=${ENABLE_VNC:-true}
+    volumes:
+      # Shared memory for browser (prevents crashes)
+      - /dev/shm:/dev/shm
+    ports:
+      # Chrome remote debugging port
+      - "9222:9222"
+      # VNC port for remote viewing of Chrome
+      - "5900:5900"
+    # Additional security and performance settings
+    security_opt:
+      - seccomp:unconfined
+    # Restart policy
+    restart: unless-stopped
+    networks:
+      - browser-network
+
+  # Main application container
+  aisearch:
+    build: .
+    container_name: aisearch-app
+    environment:
+      # Override API credentials via environment variables for security
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - OPENAI_BASE_URL=${OPENAI_BASE_URL}
+      - ANONYMIZED_TELEMETRY=false
+      # Browser connection settings
+      - CHROME_WS_ENDPOINT=ws://chrome:9222
+      - PYTHONUNBUFFERED=1
+    env_file:
+      - .env
+    volumes:
+      # Mount current directory for development
+      - .:/app
+    depends_on:
+      - chrome
+    # Restart policy
+    restart: unless-stopped
+    networks:
+      - browser-network
+
+networks:
+  browser-network:
+    driver: bridge
