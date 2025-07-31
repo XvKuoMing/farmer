@@ -17,6 +17,7 @@ CHROME_ARGS=(
     --disable-software-rasterizer
     --remote-debugging-address=0.0.0.0
     --remote-debugging-port=9222
+    --enable-remote-extensions
     --user-data-dir=/home/chrome/.config/google-chrome
     --disable-background-timer-throttling
     --disable-backgrounding-occluded-windows
@@ -43,6 +44,13 @@ CHROME_ARGS=(
     --disable-extensions
     --window-size=${SCREEN_WIDTH},${SCREEN_HEIGHT}
     --window-position=0,0
+    # Reduce D-Bus and service-related errors
+    --disable-features=VizDisplayCompositor
+    --disable-logging
+    --silent-debugger-extension-api
+    --disable-web-security
+    --disable-features=VizDisplayCompositor,VizHitTestSurfaceLayer
+    --log-level=3
 )
 
 # Start Chrome with channel=chrome (using the installed Chrome stable)
