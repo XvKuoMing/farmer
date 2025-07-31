@@ -64,7 +64,7 @@ RUN mkdir -p /home/chrome/.vnc \
     && chown -R chrome:chrome /home/chrome/.vnc
 
 # Environment variables
-ENV DISPLAY=:1
+ENV DISPLAY=:99
 ENV VNC_PORT=5901
 ENV NOVNC_PORT=6080
 ENV CDP_PORT=9222

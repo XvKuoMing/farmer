@@ -1,6 +1,7 @@
 #!/bin/bash
 
 # Wait for X server to be ready
+export DISPLAY=:99
 while ! xdpyinfo -display $DISPLAY >/dev/null 2>&1; do
     echo "Waiting for X server to start..."
     sleep 1
