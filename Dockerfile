@@ -17,6 +17,8 @@ RUN apt-get update && apt-get install -y \
     # X11 and VNC dependencies
     xvfb \
     x11vnc \
+    tigervnc-standalone-server \
+    tigervnc-common \
     fluxbox \
     dbus-x11 \
     xfonts-base \
@@ -57,10 +59,8 @@ RUN mkdir -p /home/chrome/.config/google-chrome \
     && mkdir -p /home/chrome/Downloads \
     && chown -R chrome:chrome /home/chrome
 
-# Set up VNC
+# Set up VNC directory
 RUN mkdir -p /home/chrome/.vnc \
-    && echo "chrome" | vncpasswd -f > /home/chrome/.vnc/passwd \
-    && chmod 600 /home/chrome/.vnc/passwd \
     && chown -R chrome:chrome /home/chrome/.vnc
 
 # Environment variables
