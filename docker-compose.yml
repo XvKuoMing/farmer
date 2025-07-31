@@ -1,0 +1,22 @@
+
+services:
+  chrome-novnc:
+    build: .
+    container_name: chrome-novnc
+    ports:
+      - "6080:6080"    # noVNC web interface
+      - "5901:5901"    # VNC direct connection
+      - "9222:9222"    # Chrome DevTools Protocol
+    volumes:
+      - chrome-data:/home/chrome/.config/google-chrome
+      - chrome-downloads:/home/chrome/Downloads
+    environment:
+      - SCREEN_WIDTH=1920
+      - SCREEN_HEIGHT=1080
+      - SCREEN_DEPTH=24
+    restart: unless-stopped
+    shm_size: 2gb
+
+volumes:
+  chrome-data:
+  chrome-downloads:
