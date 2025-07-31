@@ -16,8 +16,8 @@ CHROME_ARGS=(
     --disable-gpu-sandbox
     --disable-software-rasterizer
     --user-data-dir=/home/chrome/chrome-data
-    --remote-debugging-port=9222
-    --remote-debugging-address=0.0.0.0
+    --remote-debugging-port=9223
+    --remote-debugging-address=127.0.0.1
     --remote-allow-origins=*
     --enable-remote-extensions
     --disable-background-timer-throttling
@@ -54,5 +54,18 @@ CHROME_ARGS=(
     --log-level=3
 )
 
-# Start Chrome with channel=chrome (using the installed Chrome stable)
-exec /usr/bin/google-chrome-stable "${CHROME_ARGS[@]}" "$@"
+# Start Chrome on localhost:9223
+echo "Starting Chrome on localhost:9223..."
+/usr/bin/google-chrome-stable "${CHROME_ARGS[@]}" "$@" &
+
+# Start ncat proxy to make Chrome accessible on all interfaces
+echo "Starting ncat proxy on 0.0.0.0:9222 -> localhost:9223..."
+ncat \
+    --sh-exec "ncat localhost 9223" \
+    -l 9222 \
+    --keep-open &
+
+echo "Chrome DevTools accessible on port 9222"
+
+# Wait for processes
+wait
