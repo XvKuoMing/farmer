@@ -34,7 +34,8 @@ RUN apt-get update && apt-get install -y \
     supervisor \
     # Networking tools
     net-tools \
-    nmap \
+    ncat \
+    netcat-openbsd \
     && rm -rf /var/lib/apt/lists/*
 
 # Install Google Chrome
